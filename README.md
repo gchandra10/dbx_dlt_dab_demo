@@ -1,6 +1,6 @@
 # Getting started
 
-![](./Flow.png)
+<!-- ![](./Flow.png) -->
 
 ## To deploy a development copy of this project
 

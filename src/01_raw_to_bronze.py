@@ -21,6 +21,7 @@ def bronze_citi_tripdata():
         .option("cloudFiles.format", "parquet")
         .option("cloudFiles.inferColumnTypes", "true")
         .option("cloudFiles.schemaEvolutionMode", "addNewColumns")
+        .option("useNotifications", "true")
         .load(f"{citibike_raw_data}")
         .withColumn("data_ingestion_ts", current_timestamp())
         .withColumn("file_modification_time", col("_metadata.file_modification_time"))

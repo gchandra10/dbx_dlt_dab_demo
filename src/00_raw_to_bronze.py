@@ -23,6 +23,8 @@ def bronze_citi_tripdata():
         .option("cloudFiles.maxFilesPerTrigger",1000)
         .option("cloudFiles.maxBytesPerTrigger","1g")
         .option("trigger.AvailableNow", "true")
+        .option("cloudFiles.includeExistingFiles", "true")
+        .option("useNotifications", "true")
         .load(f"{citibike_raw_data}")
         .withColumn("data_ingestion_ts", current_timestamp())
         .withColumn("file_modification_time", col("_metadata.file_modification_time"))
