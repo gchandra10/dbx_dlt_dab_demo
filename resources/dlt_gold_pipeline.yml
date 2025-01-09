@@ -1,0 +1,19 @@
+# The main pipeline for dbx_dlt_dab_demo
+resources:
+  pipelines:
+    gold_citi_bike_pipeline:
+      name: gold_citi_bike_pipeline
+      catalog: gannychan
+      target: dlt_demo
+      libraries:
+        - file:
+            path: ${workspace.file_path}/src/03_silver_to_gold.py
+      channel: PREVIEW
+      development: true
+      continuous: false
+      photon: true
+      serverless: true
+      configuration:
+        citibike_raw_data: "/Volumes/gannychan/rawdata/parquetfiles"
+        citibike_schema_location: "/tmp/myDemoPipeline/citibike_tripdata_schema/"
+        bundle.sourcePath: ${workspace.file_path}/src
