@@ -1,5 +1,7 @@
 # Getting started
 
+![](./Flow.png)
+
 ## To deploy a development copy of this project
 
 ```
