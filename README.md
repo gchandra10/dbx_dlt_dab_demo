@@ -32,3 +32,11 @@ databricks bundle run -t dev silver_citi_bike_pipeline
 databricks bundle run -t dev gold_citi_bike_pipeline
 ```
 
+
+databricks bundle run -t dev silver_citi_bike_pipeline --full-refresh silver_citi_trip_data
+
+--full-refresh strings   List of tables to reset and recompute.
+--full-refresh-all       Perform a full graph reset and recompute.
+--refresh strings        List of tables to update.
+--refresh-all            Perform a full graph update.
+--validate-only          Perform an update to validate graph correctness.

@@ -1,13 +1,14 @@
 # The main pipeline for dbx_dlt_dab_demo
 resources:
   pipelines:
-    bronze_citi_bike_onetime_backfill_pipeline:
-      name: bronze_citi_bike_onetime_backfill_pipeline
+    bronze_citi_bike_pipeline:
+      name: bronze_citi_bike_pipeline
       catalog: gannychan
       target: dlt_demo
       libraries:
         - file:
             path: ${workspace.file_path}/src/00_raw_to_bronze.py
+
       channel: PREVIEW
       development: true
       continuous: false
@@ -19,20 +20,20 @@ resources:
         citibike_schema_location: "/tmp/myDemoPipeline/citibike_tripdata_schema/"
         bundle.sourcePath: ${workspace.file_path}/src
 
-    bronze_citi_bike_continuous_pipeline:
-      name: bronze_citi_bike_continuous_pipeline
-      catalog: gannychan
-      target: dlt_demo
-      libraries:
-        - file:
-            path: ${workspace.file_path}/src/01_raw_to_bronze.py
-      channel: PREVIEW
-      development: false
-      continuous: true
-      photon: true
-      serverless: true
+    # bronze_citi_bike_continuous_pipeline:
+    #   name: bronze_citi_bike_continuous_pipeline
+    #   catalog: gannychan
+    #   target: dlt_demo
+    #   libraries:
+    #     - file:
+    #         path: ${workspace.file_path}/src/01_raw_to_bronze.py
+    #   channel: PREVIEW
+    #   development: false
+    #   continuous: true
+    #   photon: true
+    #   serverless: true
 
-      configuration:
-        citibike_raw_data: "/Volumes/gannychan/rawdata/parquetfiles"
-        citibike_schema_location: "/tmp/myDemoPipeline/citibike_tripdata_schema/"
-        bundle.sourcePath: ${workspace.file_path}/src
+    #   configuration:
+    #     citibike_raw_data: "/Volumes/gannychan/rawdata/parquetfiles"
+    #     citibike_schema_location: "/tmp/myDemoPipeline/citibike_tripdata_schema/"
+    #     bundle.sourcePath: ${workspace.file_path}/src

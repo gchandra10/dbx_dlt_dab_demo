@@ -30,6 +30,36 @@ def bronze_citi_tripdata():
         .withColumn("file_modification_time", col("_metadata.file_modification_time"))
         .withColumn("source_file", col("_metadata.file_path").alias("source_file"))
     )
-    df = (df.transform(clean_column_names))
+    df = df.transform(clean_column_names)
+    
+    date_cols = ["starttime","stoptime","start_time","stop_time"]
+    df = df.transform(lambda df: standardize_dates(df,date_cols)
+    )
 
     return df
+
+# # Define the bronze table
+# @dlt.table (
+#     name="bronze_citi_trip_data",
+#     comment="Citi Bike Trip Data from 2016.",
+#     table_properties=get_table_properties("bronze",custom_properties),
+#     spark_conf={"pipelines.trigger.interval": "30 seconds"}
+# )
+# def bronze_citi_tripdata():
+#     df = (spark.readStream.format("cloudFiles")
+#         .option("cloudFiles.schemaLocation", f"{citibike_schema_location}")
+#         .option("cloudFiles.format", "parquet")
+#         .option("cloudFiles.inferColumnTypes", "true")
+#         .option("cloudFiles.schemaEvolutionMode", "addNewColumns")
+#         .option("useNotifications", "true")
+#         .load(f"{citibike_raw_data}")
+#         .withColumn("data_ingestion_ts", current_timestamp())
+#         .withColumn("file_modification_time", col("_metadata.file_modification_time"))
+#         .withColumn("source_file", col("_metadata.file_path").alias("source_file"))
+#     )
+    
+#     df = (df.transform(clean_column_names))
+#     df = standardize_dates(df,"starttime")
+#     df = standardize_dates(df,"stoptime")
+
+#     return df

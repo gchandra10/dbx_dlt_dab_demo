@@ -13,6 +13,7 @@ resources:
       continuous: false
       photon: true
       serverless: true
+      
       configuration:
         citibike_raw_data: "/Volumes/gannychan/rawdata/parquetfiles"
         citibike_schema_location: "/tmp/myDemoPipeline/citibike_tripdata_schema/"

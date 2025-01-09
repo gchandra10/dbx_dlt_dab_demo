@@ -145,6 +145,31 @@ def convert_data_to_title_case(df: DataFrame, columns: list) -> DataFrame:
     except Exception as e:
         print(f"convert data to titlecase: {str(e)}")
         raise
+    
+def standardize_dates(df: DataFrame, date_columns: List[str]) -> DataFrame:
+    """
+    Standardizes multiple date columns in the DataFrame.
+    
+    Args:
+        df (DataFrame): Input DataFrame
+        date_columns (List[str]): List of column names containing dates
+    
+    Returns:
+        DataFrame: DataFrame with standardized date columns
+    """
+    try:
+        for date_column in date_columns:
+            df = df.withColumn(
+                date_column,
+                coalesce(
+                    to_timestamp(col(date_column), "M/d/yyyy HH:mm:ss"),
+                    col(date_column)
+                )
+            )
+        return df
+    except Exception as e:
+        print(f"Error in standardize_dates: {str(e)}")
+        raise
 
 
 def standardize_encoding(df: DataFrame, target_encoding: str = 'UTF-8') -> DataFrame:
@@ -161,7 +186,7 @@ def standardize_encoding(df: DataFrame, target_encoding: str = 'UTF-8') -> DataF
     try:
         # Identify string columns
         string_columns = [field.name for field in df.schema.fields 
-                         if isinstance(field.dataType, (StringType, VarcharType))]
+                        if isinstance(field.dataType, (StringType, VarcharType))]
         
         for column_name in string_columns:
             # Convert to binary, then to target encoding
@@ -198,18 +223,12 @@ def standardize_dataframe(df: DataFrame) -> DataFrame:
         DataFrame: The standardized DataFrame.
     """
     try:
-        # Clean the column names
-        df = clean_column_names(df)
-
-        # Drop duplicates
-        df = df.dropDuplicates()
-       
-        # Trim string columns data
-        df = trim_string_data(df)
-
-        # Standardize the encoding
-        df = standardize_encoding(df, 'UTF-8')
-            
+        
+        df = (df.transform(clean_column_names) # Clean the column names
+                .dropDuplicates() # Drop duplicates
+                .transform(trim_string_data) # Trim string data
+                .transform(lambda df: standardize_encoding(df,'UTF-8')) # Standardize the encoding
+        )
         return df
     
     except Exception as e:
