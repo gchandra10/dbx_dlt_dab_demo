@@ -10,11 +10,10 @@ resources:
             path: ${workspace.file_path}/src/02_bronze_to_silver.py
       channel: PREVIEW
       development: true
-      continuous: false
+      continuous: true
       photon: true
       serverless: true
       
       configuration:
-        citibike_raw_data: "/Volumes/gannychan/rawdata/parquetfiles"
-        citibike_schema_location: "/tmp/myDemoPipeline/citibike_tripdata_schema/"
+        catalog_database: "gannychan.dlt_demo"
         bundle.sourcePath: ${workspace.file_path}/src

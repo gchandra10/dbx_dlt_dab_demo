@@ -8,3 +8,5 @@ import re, dlt, os, json
 from datetime import datetime
 import pyarrow.parquet as pq
 import pyarrow as pa
+
+from common.applogging import setup_logging

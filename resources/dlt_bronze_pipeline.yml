@@ -11,29 +11,11 @@ resources:
 
       channel: PREVIEW
       development: true
-      continuous: false
+      continuous: true
       photon: true
       serverless: true
 
       configuration:
         citibike_raw_data: "/Volumes/gannychan/rawdata/parquetfiles"
-        citibike_schema_location: "/tmp/myDemoPipeline/citibike_tripdata_schema/"
+        citibike_schema_location: "/Volumes/gannychan/rawdata/citibike_parquet_schema"
         bundle.sourcePath: ${workspace.file_path}/src
-
-    # bronze_citi_bike_continuous_pipeline:
-    #   name: bronze_citi_bike_continuous_pipeline
-    #   catalog: gannychan
-    #   target: dlt_demo
-    #   libraries:
-    #     - file:
-    #         path: ${workspace.file_path}/src/01_raw_to_bronze.py
-    #   channel: PREVIEW
-    #   development: false
-    #   continuous: true
-    #   photon: true
-    #   serverless: true
-
-    #   configuration:
-    #     citibike_raw_data: "/Volumes/gannychan/rawdata/parquetfiles"
-    #     citibike_schema_location: "/tmp/myDemoPipeline/citibike_tripdata_schema/"
-    #     bundle.sourcePath: ${workspace.file_path}/src

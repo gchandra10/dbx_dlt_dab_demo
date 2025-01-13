@@ -1,0 +1,132 @@
+{
+    "fields": [
+    {
+        "name": "trip_duration",
+        "type": "LongType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Duration of the Trip in Minutes"
+        }
+    },
+    {
+        "name": "start_time",
+        "type": "TimestampType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Trip Start Time"
+        }
+    },
+    {
+        "name": "stop_time",
+        "type": "TimestampType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Trip End Time"
+        }
+    },
+    {
+        "name": "start_station_id",
+        "type": "LongType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Starting Station ID"
+        }
+    },
+    {
+        "name": "start_station_name",
+        "type": "StringType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Starting Station Name"
+        }
+    },
+    {
+        "name": "start_station_latitude",
+        "type": "DoubleType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Starting Station Lat"
+        }
+    },
+    {
+        "name": "start_station_longitude",
+        "type": "DoubleType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Starting Station Lon"
+        }
+    },
+    {
+        "name": "end_station_id",
+        "type": "LongType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Destination Station ID"
+        }
+    },
+    {
+        "name": "end_station_name",
+        "type": "StringType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Destination Station Name"
+        }
+    },
+    {
+        "name": "end_station_latitude",
+        "type": "DoubleType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Destination Station Lat"
+        }
+    },
+    {
+        "name": "end_station_longitude",
+        "type": "DoubleType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Destination Station Lon"
+        }
+    },
+    {
+        "name": "bike_id",
+        "type": "LongType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Bike ID"
+        }
+    },
+    {
+        "name": "user_type",
+        "type": "StringType",
+        "nullable": true,
+        "metadata": {
+        "comment": "User Type Subscriber / Customer"
+        }
+    },
+    {
+        "name": "birth_year",
+        "type": "DoubleType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Birth Year Integer"
+        }
+    },
+    {
+        "name": "source_file",
+        "type": "StringType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Trip End Time"
+        }
+    },
+    {
+        "name": "file_modification_time",
+        "type": "TimestampType",
+        "nullable": true,
+        "metadata": {
+        "comment": "Trip End Time"
+        }
+    }
+    ]
+}

@@ -1,10 +1,17 @@
 from common.imports import *
 from common.functions import *
 
-citibike_raw_data = spark.conf.get("citibike_raw_data")
-citibike_schema_location = spark.conf.get("citibike_schema_location")
-
+catalog_database = spark.conf.get("catalog_database")
 custom_properties = {}
+
+log_dir = os.path.join(os.getcwd(), 'logs')
+logger, file_handler = setup_logging(log_dir)
+logger.info("Starting bronze to silver")
+
+json_file_path = os.path.join(os.getcwd(),"/schema_spec/silver_citibike_schema.json")
+logger.info(f"Reading schema from {json_file_path}")
+
+#silver_schema = get_schema_from_json()
 
 ## Liquid Clustering
 
@@ -17,7 +24,7 @@ custom_properties = {}
 
 def silver_citi_tripdata():
     try:
-        df = spark.readStream.table("gannychan.dlt_demo.bronze_citi_trip_data")
+        df = spark.readStream.table(f"{catalog_database}.bronze_citi_trip_data")
 
         df = (df.select(
                 coalesce(
@@ -58,13 +65,13 @@ def silver_citi_tripdata():
             )
         )
 
-        df = df.withColumn("start_time", to_timestamp(df.start_time,'yyyy-M-d HH:mm:ss'))
-        df = df.withColumn("stop_time", to_timestamp(df.stop_time,'yyyy-M-d HH:mm:ss'))
+        # df = df.withColumn("start_time", to_timestamp(df.start_time,'yyyy-M-d HH:mm:ss'))
+        # df = df.withColumn("stop_time", to_timestamp(df.stop_time,'yyyy-M-d HH:mm:ss'))
         
         df.transform(standardize_dataframe)
         df.transform(convert_data_to_title_case, ["user_type"])
 
         return df
     except:
-        print(f"Error in silver_citybike: {str(e)}")
+        logger.error(f"Error in silver_citi_tripdata: {str(e)}")
         raise

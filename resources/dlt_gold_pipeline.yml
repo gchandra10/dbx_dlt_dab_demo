@@ -15,6 +15,5 @@ resources:
       serverless: true
       
       configuration:
-        citibike_raw_data: "/Volumes/gannychan/rawdata/parquetfiles"
-        citibike_schema_location: "/tmp/myDemoPipeline/citibike_tripdata_schema/"
+        catalog_database: "gannychan.dlt_demo"
         bundle.sourcePath: ${workspace.file_path}/src

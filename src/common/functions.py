@@ -159,13 +159,14 @@ def standardize_dates(df: DataFrame, date_columns: List[str]) -> DataFrame:
     """
     try:
         for date_column in date_columns:
-            df = df.withColumn(
-                date_column,
-                coalesce(
-                    to_timestamp(col(date_column), "M/d/yyyy HH:mm:ss"),
-                    col(date_column)
+            if date_column in df.columns:
+                df = df.withColumn(
+                    date_column,
+                    coalesce(
+                        to_timestamp(col(date_column), "M/d/yyyy HH:mm:ss"),
+                        to_timestamp(col(date_column))
+                    )
                 )
-            )
         return df
     except Exception as e:
         print(f"Error in standardize_dates: {str(e)}")
@@ -234,3 +235,20 @@ def standardize_dataframe(df: DataFrame) -> DataFrame:
     except Exception as e:
         print(f"Error in standardize_dataframe: {str(e)}")
         raise
+
+
+def get_schema_from_json(json_schema_file):
+    with open(json_schema_file, 'r') as f:
+        schema_json = json.load(f)
+        mystruct = StructType()
+        for field in schema_json['fields']:
+            metadata = field.get('metadata', {})
+            # Create StructField directly instead of using add method
+            new_field = StructField(
+                name=field.get('name'),
+                dataType=globals()[field.get('type','StringType')](),
+                nullable=field.get('nullable', True),
+                metadata=metadata
+            )
+            mystruct = mystruct.add(new_field)
+        return mystruct
